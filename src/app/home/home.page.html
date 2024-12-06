@@ -1,0 +1,67 @@
+<ion-menu contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item button shape="round" color="secondary" (click)="navigateTo('home')">
+        <img src="assets/img/home.png" alt="icono" style="width: 30px; height: 20px; margin-right: 8px;">
+        Inicio
+      </ion-item>
+      <ion-item button shape="round" color="secondary" (click)="navigateTo('user')">
+        <img src="assets/img/usuario.png" alt="icono" style="width: 20px; height: 20px; margin-right: 8px;">
+        Usuario 
+      </ion-item>
+      <ion-item button shape="round" color="secondary" (click)="navigateTo('lista')">
+        <ion-icon style="width: 20px; height: 30px; margin-right: 8px;" name="list-outline"></ion-icon>
+        Lista 
+      </ion-item>
+    </ion-list>
+    <div class="spacer">
+      <ion-item button shape="round" color="secondary" (click)="presentLogoutConfirm('login')">
+        Salir
+      </ion-item>
+    </div>
+
+    
+
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>RegistrApp</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <hr>
+  <ion-content>
+    <div class="form-container">
+      <ion-text>
+        <h1 style="color: #4c00ff; justify-content: center;">Bienvenido</h1>
+        <h3 style="color: #f90;">Esta es la app de registro de Asistencias DuocUc</h3>
+      </ion-text>
+    </div>
+
+  <ion-segment [(ngModel)]="segment" mode="ios">
+  <ion-segment-button shape="round" (click)="qrcode()">
+    <ion-label style="display: flex; align-items: center; justify-content: center;">
+      <h1 style="white-space: nowrap;">Registrar Asistencia</h1>
+      <ion-icon slot="end" name="qr-code-outline"></ion-icon> 
+    </ion-label>
+  </ion-segment-button>
+</ion-segment>
+</ion-content>
+
+<ion-card-header>
+  <ion-card-title>
+    <h3 style="color: #333333;">Hora actual: {{ horaActual }}</h3>
+  </ion-card-title>
+</ion-card-header>
+
+</div>
