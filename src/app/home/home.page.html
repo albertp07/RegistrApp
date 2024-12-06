@@ -7,20 +7,21 @@
   <ion-content class="ion-padding">
     <ion-list>
       <ion-item button shape="round" color="secondary" (click)="navigateTo('home')">
-        <img src="assets/img/home.png" alt="icono" style="width: 30px; height: 20px; margin-right: 8px;">
+        <ion-icon style="width: 30px; height: 30px; margin-right: 8px;" name="list-outline" name="home-outline"></ion-icon>
         Inicio
       </ion-item>
       <ion-item button shape="round" color="secondary" (click)="navigateTo('user')">
-        <img src="assets/img/usuario.png" alt="icono" style="width: 20px; height: 20px; margin-right: 8px;">
+        <ion-icon style="width: 30px; height: 30px; margin-right: 8px;" name="list-outline" name="person-circle-outline"></ion-icon>
         Usuario 
       </ion-item>
       <ion-item button shape="round" color="secondary" (click)="navigateTo('lista')">
-        <ion-icon style="width: 20px; height: 30px; margin-right: 8px;" name="list-outline"></ion-icon>
+        <ion-icon style="width: 30px; height: 30px; margin-right: 8px;" name="list-outline"></ion-icon>
         Lista 
       </ion-item>
     </ion-list>
     <div class="spacer">
       <ion-item button shape="round" color="secondary" (click)="presentLogoutConfirm('login')">
+        <ion-icon style="width: 30px; height: 30px; margin-right: 8px;" name="list-outline" name="exit-outline"></ion-icon>
         Salir
       </ion-item>
     </div>
