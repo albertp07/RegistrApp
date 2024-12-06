@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserPageModule) },
   {path: 'registro',loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)},
+  {path: 'lista',loadChildren: () => import('./lista/lista.module').then( m => m.ListaPageModule)},
   { path: '**', component: PageNotFoundComponent },
   {
     path: 'lista',
