@@ -49,9 +49,9 @@
     </div>
 
   <ion-segment [(ngModel)]="segment" mode="ios">
-  <ion-segment-button shape="round" (click)="qrcode()">
+  <ion-segment-button shape="round" (click)="qrcode()" style="background-color: yellow;">
     <ion-label style="display: flex; align-items: center; justify-content: center;">
-      <h1 style="white-space: nowrap;">Registrar Asistencia</h1>
+      <h1>Registrar Asistencia</h1>
       <ion-icon slot="end" name="qr-code-outline"></ion-icon> 
     </ion-label>
   </ion-segment-button>
@@ -60,7 +60,7 @@
 
 <ion-card-header>
   <ion-card-title>
-    <h3 style="color: #333333;">Hora actual: {{ horaActual }}</h3>
+    <h3 style="color: #fff;">Hora: {{ horaActual }}</h3>
   </ion-card-title>
 </ion-card-header>
 

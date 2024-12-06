@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: 'reset-password', loadChildren: () => import('./reset-password/reset-password.module').then(m => m.ResetPasswordPageModule) },
   { path: 'home', loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) },
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserPageModule) },
-  { path: 'clases', loadChildren: () => import('./clases/clases.module').then(m => m.clasesPageModule) },   
   {path: 'registro',loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)},
   {path: 'lista',loadChildren: () => import('./lista/lista.module').then( m => m.ListaPageModule)},
   { path: '**', component: PageNotFoundComponent },
