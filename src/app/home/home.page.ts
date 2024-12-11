@@ -8,6 +8,7 @@ import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from '@capac
 import { Storage } from '@ionic/storage-angular'; 
 import { AnimationController, ToastController, AlertController } from '@ionic/angular';
 import { AuthService } from '../service/auth.service'; 
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,8 @@ import { AuthService } from '../service/auth.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+
+  isModalOpen = false;
 
   segment: string = 'generar';
   qrText: string = '';
@@ -28,10 +31,14 @@ export class HomePage implements OnInit {
   seccion: string = '';
   sala: string = '';
   fecha: string = '';
-  locationErrorMessage: string = '';  // Mensaje de error de ubicación
+  locationErrorMessage: string = '';
 
   // Coordenadas de referencia para la validación de distancia
   referencia = { lat: -33.499818, lon: -70.616237 }; // Cambia por las coordenadas correctas
+  historialAsistencias: any;
+  historialVisible: boolean = false;
+  generarQRVisible: boolean = false;
+
 
   constructor(
     public httpClient: HttpClient,
@@ -43,8 +50,14 @@ export class HomePage implements OnInit {
     private alertController: AlertController,
     private storage: Storage,
     private toastController: ToastController,
-    private authService: AuthService
+    private authService: AuthService,
+    private modalController: ModalController
   ) {}
+
+  toggleGenerarQR() {
+    this.generarQRVisible = !this.generarQRVisible;
+  }
+  
 
   ngOnInit() {
     this.storage.create().then(() => { 
@@ -131,7 +144,7 @@ export class HomePage implements OnInit {
   // manejar la apertura de la cámara
   async qrcode(): Promise<void> {
     if (this.locationErrorMessage) {
-      alert(this.locationErrorMessage);  // Mostrar mensaje de error si la ubicación no es válida
+      alert(this.locationErrorMessage); 
       return;
     }
 
@@ -139,6 +152,37 @@ export class HomePage implements OnInit {
       hint: CapacitorBarcodeScannerTypeHint.ALL
     });
     this.result = result.ScanResult;
+
+
+    //result
+    if (result.ScanResult) {
+      this.result = result.ScanResult;
+  
+      // Guardar el registro de asistencia
+      const nuevaAsistencia = {
+        texto: this.result,
+        fecha: new Date().toLocaleString(), // Fecha y hora del escaneo
+      };
+  
+      // Obtener el historial actual del almacenamiento
+      const historial = (await this.storage.get('asistencias')) || [];
+      historial.push(nuevaAsistencia);
+  
+      // Guardar el historial actualizado en el almacenamiento
+      await this.storage.set('asistencias', historial);
+      console.log('Asistencia registrada:', nuevaAsistencia);
+      alert('¡Asistencia registrada exitosamente!');
+    } else {
+      alert('No se pudo leer el código QR.');
+    }
+  }
+
+  //obtener asistencia
+
+  async obtenerHistorial(): Promise<void> {
+    const historial = (await this.storage.get('asistencias')) || [];
+    console.log('Historial de asistencias:', historial);
+    this.historialAsistencias = historial; // Asigna a una variable para mostrar en la vista
   }
 
   guardarSeleccion() {
@@ -158,7 +202,7 @@ export class HomePage implements OnInit {
     const month = String(fecha.getMonth() + 1).padStart(2, '0');
     const day = String(fecha.getDate()).padStart(2, '0');
     
-    return `${year}${month}${day}`;
+    return `${day}${month}${year}`;
   }
 
   toggleTheme() {
@@ -219,6 +263,14 @@ export class HomePage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  toggleHistorial(): void {
+    this.historialVisible = !this.historialVisible;
+
+    if (this.historialVisible) {
+      this.obtenerHistorial();
+    }
   }
 
 }

@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
+import { QRCodeModule } from 'angularx-qrcode';
 import { QrCodeModule } from 'ng-qrcode';
+
 
 
 @NgModule({
@@ -18,6 +20,7 @@ import { QrCodeModule } from 'ng-qrcode';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
+    QRCodeModule,
     QrCodeModule
   ], bootstrap: [HomePage],
   declarations: [HomePage]

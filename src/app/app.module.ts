@@ -9,6 +9,7 @@ import { UserService } from './user.service';
 import { WeatherService } from './tiempo/weather.service'; 
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage-angular';  
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     IonicModule.forRoot({ mode: 'md' }),
     AppRoutingModule,
     HttpClientModule,
-    IonicStorageModule.forRoot()  
+    IonicStorageModule.forRoot()  ,
+    QRCodeModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

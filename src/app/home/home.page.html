@@ -19,11 +19,13 @@
         Lista 
       </ion-item>
     </ion-list>
-    <div class="spacer">
-      <ion-item button shape="round" color="secondary" (click)="presentLogoutConfirm('login')">
-        Salir
+
+    <div style="display: flex; flex-direction: column; height: 77%; justify-content: flex-end;">
+      <ion-item button shape="round" color="danger" (click)="presentLogoutConfirm('login')" style="background-color: red;">
+        <ion-label style="color: white; text-align: center;">Salir</ion-label>
       </ion-item>
     </div>
+
 
     
 
@@ -56,6 +58,108 @@
     </ion-label>
   </ion-segment-button>
 </ion-segment>
+
+<ion-button expand="block" shape="round" color="primary" (click)="toggleHistorial()" style="font-size: 18px;">
+  {{ historialVisible ? 'Ocultar Historial' : 'Ver Historial' }}
+  <ion-icon slot="end" [name]="historialVisible ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+</ion-button>
+
+<div class="historial-container" *ngIf="historialVisible">
+<ion-list>
+  <ion-item *ngFor="let asistencia of historialAsistencias">
+    <ion-label>
+      <h2 style="color: black;">{{ asistencia.texto }}</h2>
+      <p>{{ asistencia.fecha }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+</div>
+
+<ion-button expand="block" shape="round" color="primary" (click)="toggleGenerarQR()" style="font-size: 18px;">
+    Crear Qr de la Clase
+  </ion-button>
+
+
+
+<ion-content>
+
+  <div *ngIf="generarQRVisible">
+
+    <ion-toolbar>
+      <ion-title>Seleccionar materia</ion-title>
+    </ion-toolbar>
+  <!-- Formulario de selección -->
+  <ion-list>
+  <ion-item>
+    <ion-label>Selecciona una asignatura</ion-label>
+    <ion-select label-placement="fixed" [(ngModel)]="asignatura" placeholder="Elige una asignatura" style="color: #000;">
+      <ion-select-option value="ASY4131">Arquitectura</ion-select-option>
+      <ion-select-option value="CSY4111">Calidad de Software</ion-select-option>
+      <ion-select-option value="MAT4140">Estadisctica Descriptiva</ion-select-option>
+      <ion-select-option value="EAY4450">Etica para el trabajo</ion-select-option>
+      <ion-select-option value="INI5111">Ingles Intermedio</ion-select-option>
+      <ion-select-option value="APY4461">Proceso portafolio 4</ion-select-option>
+      <ion-select-option value="PGY4121">Programacion de aplicaciones moviles</ion-select-option>
+      <ion-select-option value="TDM4112">Taller de Tenis de Mesa</ion-select-option>
+      <ion-select-option value="VOL2427">Taller de VoleyBall</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Selecciona una sección</ion-label>
+    <ion-select [(ngModel)]="seccion" placeholder="Elige una sección" style="color: #000;">
+      <ion-select-option value="001D">001D</ion-select-option>
+      <ion-select-option value="002D">002D</ion-select-option>
+      <ion-select-option value="003D">003D</ion-select-option>
+      <ion-select-option value="004D">004D</ion-select-option>
+      <ion-select-option value="005D">005D</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  
+  <ion-item>
+    <ion-label>Selecciona una sala</ion-label>
+    <ion-select [(ngModel)]="sala" placeholder="Elige una sala" style="color: #000;">
+      <ion-select-option style="color: #000;" value="L3">L3</ion-select-option>
+      <ion-select-option style="color: #000;" value="L4">L4</ion-select-option>
+      <ion-select-option style="color: #000;" value="L5">L5</ion-select-option>
+      <ion-select-option style="color: #000;" value="L6">L6</ion-select-option>
+      <ion-select-option style="color: #000;" value="L7">L7</ion-select-option>
+      <ion-select-option style="color: #000;" value="L7">Sala 303</ion-select-option>
+      <ion-select-option style="color: #000;" value="L7">Espacio -1</ion-select-option>
+      <ion-select-option style="color: #000;" value="L7">Cancha</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+  <!-- Botón para guardar selección -->
+  <ion-button expand="full" (click)="guardarSeleccion()">Generar QR</ion-button>
+
+  <h1 style="text-align: center;">Escanea la asistencia de la Clase</h1>
+
+  
+  <!--Mostrar el qr-->
+  <div *ngIf="segment === 'generar'">
+    <div class="segment-content">
+      <div id="qrimage">
+        <div class="d-flex-center">
+          <div class="d-flex-center qr-wrapper">
+            <qr-code [value]="qrText" size="190" errorCorrectionLevel="M"></qr-code>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center; text-align: center; color: black;">
+            <ion-textarea style="color: #fff;"
+              [readonly]="true"
+              label="Código de la Clase"
+              label-placement="stacked"
+              fill="outline"
+              [(ngModel)]="qrText"
+              [autoGrow]="true">
+            </ion-textarea>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
 
 <ion-card-header>
@@ -63,5 +167,3 @@
     <h3 style="color: #fff;">Hora: {{ horaActual }}</h3>
   </ion-card-title>
 </ion-card-header>
-
-</div>
